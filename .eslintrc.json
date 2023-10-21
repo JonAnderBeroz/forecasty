@@ -1,3 +1,74 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": [
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:prettier/recommended",
+    "plugin:import/recommended",
+    "plugin:import/typescript"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint",
+    "prettier"
+  ],
+  "rules": {
+    "no-multiple-empty-lines": "error",
+    "padding-line-between-statements": [
+      "warn",
+      {"blankLine": "always", "prev": "*", "next": ["return", "export"]},
+      {"blankLine": "always", "prev": ["const", "let", "var"], "next": "*"},
+      {"blankLine": "any", "prev": ["const", "let", "var"], "next": ["const", "let", "var"]},
+      {"blankLine": "any", "prev": "export", "next": "export"}
+    ],
+    "react/react-in-jsx-scope": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "react/self-closing-comp": "warn",
+    "react/hook-use-state": [ "error", {"allowDestructuredState": true}],
+    "react/jsx-sort-props": [
+      "warn",
+      {
+        "callbacksLast": true,
+        "shorthandFirst": true,
+        "noSortAlphabetically": false,
+        "reservedFirst": true
+      }
+    ],
+    "prettier/prettier": [
+      "warn",
+      {
+        "printWidth": 100,
+        "tab-width": 2,
+        "semi": true,
+        "singleQuote": false,
+        "bracketSpacing": false,
+        "trailingComma": "all",
+        "arrowParens": "always",
+        "endOfLine": "auto"
+      }
+    ],
+    "import/order": [
+      "warn",
+      {
+        "newlines-between": "always-and-inside-groups",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        },
+        "groups": [
+          "external",
+          "builtin",
+          "internal",
+          "parent",
+          ["sibling", "index"]
+        ]
+      }
+    ]
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": "true",
+      "node": "true"
+    }
+  }
 }
