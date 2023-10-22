@@ -7,4 +7,21 @@
   color-scheme: dark light;
   color: CanvasText;
   background-color: Cavas;
+  scrollbar-color: #818B99 #333;
+  scrollbar-width: thin;
+  
 }
+
+::-webkit-scrollbar {
+  background: #333;
+  border-radius: 15px;
+  margin: auto;
+}
+
+
+::-webkit-scrollbar-thumb {
+  background-color: #818B99;
+  border: 3px solid transparent;
+  border-radius: 9px;
+}
+
