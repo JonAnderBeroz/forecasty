@@ -1,10 +1,12 @@
 "use client";
+import Image from "next/image";
 import {useMemo, useState} from "react";
 
 import {useGetForecast} from "@/hooks/useGetForecast";
 import {Forecastday, Hour} from "@/types";
 
 import LocationForm from "./LocationForm";
+import TimeChart from "./time-chart";
 import WeatherSummary from "./weather-sumary";
 
 function HourlyForecast({forecasts}: {forecasts: Forecastday[]}) {
@@ -73,7 +75,36 @@ function HourlyForecast({forecasts}: {forecasts: Forecastday[]}) {
 }
 
 function DailyForecast({forecasts}: {forecasts: Forecastday[]}) {
-  return <span>daily forecast</span>;
+  return (
+    <section className="flex flex-col gap-10">
+      {forecasts.map(
+        (
+          {
+            day: {
+              maxtemp_c,
+              mintemp_c,
+              condition: {text, icon},
+            },
+            hour,
+          },
+          i,
+        ) => (
+          <section key={i} className="flex items-center">
+            <section className="flex flex-col">
+              <article className="flex items-center font-bold flex-wrap justify-center">
+                <Image alt={`${text} image`} height={80} src={`https:${icon}`} width={80} />
+                <span className="text-xl">
+                  {mintemp_c}ºC | {maxtemp_c}ºC
+                </span>
+              </article>
+              <p className="text-xl font-semibold pl-2">{text}</p>
+            </section>
+            <TimeChart data={hour} />
+          </section>
+        ),
+      )}
+    </section>
+  );
 }
 
 export default function Index() {
@@ -110,6 +141,7 @@ export default function Index() {
         icon={weatherForecast.current.condition.icon}
         text={weatherForecast.current.condition.text}
       />
+
       {forecastType === "hourly" ? (
         <HourlyForecast forecasts={weatherForecast.forecast.forecastday} />
       ) : (
