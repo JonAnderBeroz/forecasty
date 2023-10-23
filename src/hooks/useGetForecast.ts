@@ -8,17 +8,23 @@ import {getUserLocation} from "@/utils";
 
 export function useGetForecast(): readonly [
   Weather | null,
+  String | null,
   Dispatch<SetStateAction<string | null>>,
 ] {
   const [location, setLocation] = useState<string | null>(null);
   const [weatherForecast, setWeatherForecast] = useState<Weather | null>(null);
 
   useEffect(() => {
-    getUserLocation((res) => {
-      const {latitude, longitude} = res.coords;
+    getUserLocation(
+      (res) => {
+        const {latitude, longitude} = res.coords;
 
-      setLocation(`${latitude},${longitude}`);
-    });
+        setLocation(`${latitude},${longitude}`);
+      },
+      (err) => {
+        setLocation("London");
+      },
+    );
   }, []);
 
   useEffect(() => {
@@ -26,5 +32,5 @@ export function useGetForecast(): readonly [
     api.weather.get(location).then((res) => setWeatherForecast(res));
   }, [location]);
 
-  return [weatherForecast, setLocation] as const;
+  return [weatherForecast, location, setLocation] as const;
 }

@@ -108,10 +108,19 @@ function DailyForecast({forecasts}: {forecasts: Forecastday[]}) {
 }
 
 export default function Index() {
-  const [weatherForecast, setLocation] = useGetForecast();
+  const [weatherForecast, location, setLocation] = useGetForecast();
   const [forecastType, setForecastType] = useState<"hourly" | "daily">("hourly");
 
   if (!weatherForecast) return;
+
+  if (weatherForecast.error) {
+    return (
+      <main className="flex gap-10 flex-col max-w-6xl w-full ">
+        <LocationForm search={setLocation} />
+        <p className="self-center ">{weatherForecast.error.message}</p>
+      </main>
+    );
+  }
 
   return (
     <main className="flex gap-10 flex-col max-w-6xl w-full">
@@ -134,7 +143,9 @@ export default function Index() {
           Days
         </button>
       </section>
-
+      <p className="self-center text-6xl font-semibold">
+        {location?.search(",") ? weatherForecast.location.name : location}
+      </p>
       <WeatherSummary
         {...weatherForecast.current}
         date={new Date(weatherForecast.current.last_updated)}

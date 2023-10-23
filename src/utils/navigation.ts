@@ -1,3 +1,3 @@
-export function getUserLocation(callback: PositionCallback) {
-  navigator.geolocation.getCurrentPosition(callback);
+export function getUserLocation(callback: PositionCallback, onError?: PositionErrorCallback) {
+  navigator.geolocation.getCurrentPosition(callback, onError);
 }

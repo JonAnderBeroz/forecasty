@@ -11,6 +11,10 @@ export interface Weather {
   location: Location;
   current: Current;
   forecast: Forecast;
+  error: {
+    code: number;
+    message: string;
+  };
 }
 
 export interface Current {
