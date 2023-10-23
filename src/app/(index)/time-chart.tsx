@@ -1,6 +1,6 @@
 "use client";
 
-import {init, getInstanceByDom, ECharts} from "echarts";
+import {init, getInstanceByDom, ECharts, graphic} from "echarts";
 
 import {useEffect, useRef} from "react";
 
@@ -12,10 +12,12 @@ export default function TimeChart({data}: {data: Hour[]}) {
   useEffect(() => {
     const xValue: string[] = [];
     const yValue: string[] = [];
-    const d = data.forEach((h) => {
+    let selectedIndex: number = 0;
+    const d = data.forEach((h, i) => {
       const {time, temp_c} = h;
       const date: Date = new Date(time);
 
+      if (date.getHours() === new Date().getHours()) selectedIndex = i;
       xValue.push(
         `${date.getHours().toLocaleString("es-Es", {
           minimumIntegerDigits: 2,
@@ -42,13 +44,39 @@ export default function TimeChart({data}: {data: Hour[]}) {
         {
           data: yValue,
           type: "line",
+
           smooth: true,
-          areaStyle: {},
+          areaStyle: {
+            color: new graphic.LinearGradient(0, 0, 0, 1, [
+              {
+                offset: 0,
+                color: "#4d7cff",
+              },
+              {
+                offset: 0.5,
+                color: "#99b4ff",
+              },
+              {
+                offset: 1,
+                color: "#bacdff",
+              },
+            ]),
+          },
+          symbol: "emptyCircle",
+          symbolSize: 8,
         },
       ],
       tooltip: {
         trigger: "axis",
-        axisPointer: {type: "none"},
+        axisPointer: {
+          type: "none",
+        },
+        position: function (point: Array<Number>) {
+          // fixed at top
+          return [point[0], "10%"];
+        },
+        formatter: "Hora: {b0} <br /> Temperatura: {c0} Cº",
+        padding: [5, 10],
       },
     };
 
@@ -60,5 +88,5 @@ export default function TimeChart({data}: {data: Hour[]}) {
     }
   }, [data]);
 
-  return <div ref={chartRef} className="w-full h-full" />;
+  return <div ref={chartRef} className="w-full h-60" />;
 }

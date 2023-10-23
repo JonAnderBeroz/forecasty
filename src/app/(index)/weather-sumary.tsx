@@ -44,12 +44,12 @@ export default function WeatherSummary({
     <section className="flex flex-col items-center gap-3 m-auto min-w-[250px]">
       <h2>
         {options.onlyTime
-          ? `${date.getHours().toLocaleString("es-Es", {
+          ? `${date.getHours().toLocaleString("en-EU", {
               minimumIntegerDigits: 2,
-            })}:${date.getMinutes().toLocaleString("es-Es", {
+            })}:${date.getMinutes().toLocaleString("en-EU", {
               minimumIntegerDigits: 2,
             })}`
-          : date.toLocaleDateString("es-ES", options.dateOptions)}
+          : date.toLocaleDateString("en-EU", options.dateOptions)}
       </h2>
       <article
         className={`

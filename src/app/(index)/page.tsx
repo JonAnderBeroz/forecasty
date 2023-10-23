@@ -34,7 +34,7 @@ function HourlyForecast({forecasts}: {forecasts: Forecastday[]}) {
             type="button"
             onClick={() => setSelectedDay(i)}
           >
-            {new Date(day[0].time).toLocaleDateString("es-ES", {
+            {new Date(day[0].time).toLocaleDateString("en-EU", {
               weekday: "short",
               year: undefined,
               month: "short",
@@ -45,7 +45,7 @@ function HourlyForecast({forecasts}: {forecasts: Forecastday[]}) {
           </button>
         ))}
       </section>
-      <section className="flex gap-12 overflow-y-auto">
+      <section className="flex gap-12 overflow-x-scroll">
         {dailyForecast[selectedDay]
           .filter(({time}) => new Date(time) > new Date())
           .map(({condition: {text, icon}, temp_c, humidity, wind_kph, time}, i) => {
@@ -76,7 +76,7 @@ function HourlyForecast({forecasts}: {forecasts: Forecastday[]}) {
 
 function DailyForecast({forecasts}: {forecasts: Forecastday[]}) {
   return (
-    <section className="flex flex-col gap-10">
+    <section className="flex flex-col gap-10 flex-1">
       {forecasts.map(
         (
           {
@@ -90,14 +90,14 @@ function DailyForecast({forecasts}: {forecasts: Forecastday[]}) {
           i,
         ) => (
           <section key={i} className="flex items-center">
-            <section className="flex flex-col">
+            <section className="flex flex-col min-w-[200px]">
               <article className="flex items-center font-bold flex-wrap justify-center">
                 <Image alt={`${text} image`} height={80} src={`https:${icon}`} width={80} />
                 <span className="text-xl">
                   {mintemp_c}ºC | {maxtemp_c}ºC
                 </span>
               </article>
-              <p className="text-xl font-semibold pl-2">{text}</p>
+              <p className="text-xl font-semibold self-center">{text}</p>
             </section>
             <TimeChart data={hour} />
           </section>
@@ -114,7 +114,7 @@ export default function Index() {
   if (!weatherForecast) return;
 
   return (
-    <main className="flex gap-10 flex-col">
+    <main className="flex gap-10 flex-col max-w-6xl w-full">
       <LocationForm search={setLocation} />
       <section className="flex gap-3">
         <button
@@ -123,7 +123,7 @@ export default function Index() {
           } p-4 rounded-full hover:shadow-xl hover:shadow-zinc-800 hover:scale-105 transition-all w-32 text-lg font-semibold`}
           onClick={() => setForecastType("hourly")}
         >
-          Horas
+          Hours
         </button>
         <button
           className={`${
@@ -131,7 +131,7 @@ export default function Index() {
           } p-4 rounded-full hover:shadow-xl hover:shadow-zinc-800 hover:scale-105 transition-all w-32 font-semibold`}
           onClick={() => setForecastType("daily")}
         >
-          Días
+          Days
         </button>
       </section>
 

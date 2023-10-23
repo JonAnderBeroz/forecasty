@@ -13,6 +13,7 @@
 }
 
 ::-webkit-scrollbar {
+  width: 20px;;
   background: #333;
   border-radius: 15px;
   margin: auto;
@@ -21,7 +22,6 @@
 
 ::-webkit-scrollbar-thumb {
   background-color: #818B99;
-  border: 3px solid transparent;
-  border-radius: 9px;
+  border-radius: 10px;
 }
 
