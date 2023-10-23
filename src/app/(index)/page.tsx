@@ -45,7 +45,7 @@ function HourlyForecast({forecasts}: {forecasts: Forecastday[]}) {
           </button>
         ))}
       </section>
-      <section className="flex gap-12 overflow-x-scroll">
+      <section className="flex gap-12 overflow-x-scroll pb-5">
         {dailyForecast[selectedDay]
           .filter(({time}) => new Date(time) > new Date())
           .map(({condition: {text, icon}, temp_c, humidity, wind_kph, time}, i) => {
