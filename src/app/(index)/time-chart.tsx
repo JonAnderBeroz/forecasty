@@ -75,7 +75,7 @@ export default function TimeChart({data}: {data: Hour[]}) {
           // fixed at top
           return [point[0], "10%"];
         },
-        formatter: "Hora: {b0} <br /> Temperatura: {c0} Cº",
+        formatter: "Time: {b0} <br /> Temperature: {c0} Cº",
         padding: [5, 10],
       },
     };
